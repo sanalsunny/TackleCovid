@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CowinAvailabilityTracker
+namespace CowinAvailabilityTracker.Mangers
 {
     public class ChatManager
     {
@@ -14,7 +14,7 @@ namespace CowinAvailabilityTracker
             if (AppContext.chatWebhookUrl.Length > 0)
             {
 
-                var messageList = new List<string>() { newCentre?"New Center Available":null, Environment.NewLine, message };
+                var messageList = new List<string>() { newCentre ? "New Center Available" : null, Environment.NewLine, message };
 
                 var text = new Dictionary<string, string>() { { "text", String.Join(Environment.NewLine, messageList.ToArray()) } };
 

@@ -9,8 +9,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using static CowinAvailabilityTracker.Constants.Enums;
 
-namespace CowinAvailabilityTracker
+namespace CowinAvailabilityTracker.Mangers
 {
+
     public class SlotManger
     {
         public static IDictionary<string, string> centers = new Dictionary<string, string>();
@@ -127,7 +128,7 @@ namespace CowinAvailabilityTracker
             return JsonConvert.DeserializeObject<CenterList>(content);
         }
 
-        public async Task CheckAndPost(string date,int centerName,string slotMessage)
+        public async Task CheckAndPost(string date, int centerName, string slotMessage)
         {
             var dictKey = string.Concat(date, '#', centerName);
             if (centers.ContainsKey(dictKey))
@@ -146,7 +147,7 @@ namespace CowinAvailabilityTracker
             else
             {
                 centers.Add(dictKey, slotMessage);
-                await ChatManager.PostToChatAsync(slotMessage,true);
+                await ChatManager.PostToChatAsync(slotMessage, true);
             }
         }
     }
