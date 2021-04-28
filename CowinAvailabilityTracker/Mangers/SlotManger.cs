@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using static CowinAvailabilityTracker.Constants.Enums;
 
@@ -76,6 +77,7 @@ namespace CowinAvailabilityTracker.Mangers
                 var dateToProcess = date.ToString("dd-MM-yyyy");
                 await ProcessDistrict(districtId, districtName, vaccine, dateToProcess);
                 date = date.AddDays(dateInterval);
+                Thread.Sleep(500);
                 i++;
             }
         }
@@ -104,8 +106,9 @@ namespace CowinAvailabilityTracker.Mangers
 
                     foreach (var center in str.Centers)
                     {
-                        var slots = string.Join(Environment.NewLine, center.Sessions.Select(x => $" {x.Available_capacity} slots available on {x.Date}{vaccineMessage}"));
-                        var slotMessage = $"{center.Fee_type} vaccination at {center.Name} located in {center.District_name} district with pincode {center.Pincode}"
+                        var slots = string.Join(Environment.NewLine, center.Sessions.Select(x => $" {x.Available_capacity} slots for age {x.Min_age_limit}+ " +
+                        $"available on {x.Date} { x.Vaccine??vaccineMessage}"));
+                        var slotMessage = $"{center.Fee_type} vaccination at {center.Name} located in {center.District_name} district with pincode {center.Pincode} "
                             + Environment.NewLine + slots + Environment.NewLine;
 
                         Console.WriteLine(slotMessage);
