@@ -96,11 +96,11 @@ namespace CowinAvailabilityTracker.Mangers
 
                 if (str.Centers.Count == 0)
                 {
-                    Console.WriteLine($"No Centers were found in {districtName} form {date} to {enddate}{vaccineMessage}");
+                    Console.WriteLine($"{DateTime.Now:dd-MM-yyyy hh:mm:ss}| No Centers were found in {districtName} from {date} to {enddate}{vaccineMessage}");
                 }
                 else
                 {
-                    Console.WriteLine($"Centers were found in {districtName} form {date} to {enddate}{vaccineMessage}");
+                    Console.WriteLine($"{DateTime.Now:dd-MM-yyyy hh:mm:ss}| Centers were found in {districtName} from {date} to {enddate}{vaccineMessage}");
 
                     foreach (var center in str.Centers)
                     {
