@@ -28,24 +28,24 @@ namespace CowinAvailabilityTracker
                                               .Build();
 
             runMode = (RunMode)Enum.Parse(typeof(RunMode), appConfiguration.GetSection("AppSettings")["RunMode"]);
-            district = appConfiguration.GetSection("AppSettings")["District"];
+            AppContext.district = appConfiguration.GetSection("AppSettings")["District"];
             chatWebhookUrl = appConfiguration.GetSection("AppSettings")["ChatWebhookUrl"];
             interval = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["AlertInterval"]);
             districtsList = JsonConvert.DeserializeObject<DistrictList>(File.ReadAllText("Districts.json"));
             VaccineSearchMode = (VaccineSearchMode)Enum.Parse(typeof(VaccineSearchMode), appConfiguration.GetSection("AppSettings")["VaccineSearchMode"].ToUpper());
             WeeksToSearch = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["WeeksToSearch"]);
 
-            var dis = districtsList.Districts.Where(x => String.Equals(x.district_name, district, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            var district = districtsList.Districts.Where(x => string.Equals(x.District_name, AppContext.district, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
 
             if (runMode == RunMode.District)
             {
-                if (dis == null)
+                if (district == null)
                 {
                     throw (new Exception("District Not Found in Kerala"));
                 }
                 else
                 {
-                    districtId = dis.district_id;
+                    districtId = district.District_id;
                 }
             }
             else

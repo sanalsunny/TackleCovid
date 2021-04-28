@@ -5,27 +5,26 @@ namespace CowinAvailabilityTracker.Models
 {
     public class CenterList
     {
-        [JsonProperty("centers")]
         public List<CenterModel> Centers { get; set; }
     }
 
     public class CenterModel
     {
-        public int center_id { get; set; }
-        public string name { get; set; }
-        public string state_name { get; set; }
-        public string district_name { get; set; }
-        public string block_name { get; set; }
-        public int pincode { get; set; }
-        public string fee_type { get; set; }
-        public List<session> sessions { get; set; }
+        public int Center_id { get; set; }
+        public string Name { get; set; }
+        public string State_name { get; set; }
+        public string District_name { get; set; }
+        public string Block_name { get; set; }
+        public int Pincode { get; set; }
+        public string Fee_type { get; set; }
+        public List<Session> Sessions { get; set; }
     }
 
-    public class session
+    public class Session
     {
-        public string session_id { get; set; }
-        public string date { get; set; }
-        public float available_capacity { get; set; }
-        public List<string> slots { get; set; }
+        public string Session_id { get; set; }
+        public string Date { get; set; }
+        public float Available_capacity { get; set; }
+        public List<string> Slots { get; set; }
     }
 }

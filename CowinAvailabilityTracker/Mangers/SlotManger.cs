@@ -16,7 +16,7 @@ namespace CowinAvailabilityTracker.Mangers
     {
         public static IDictionary<string, string> centers = new Dictionary<string, string>();
 
-        public async Task FindSlot()
+        public async Task MonitorSlot()
         {
             switch (AppContext.VaccineSearchMode)
             {
@@ -61,7 +61,7 @@ namespace CowinAvailabilityTracker.Mangers
         {
             foreach (var district in AppContext.districtsList.Districts)
             {
-                await GetSpecifiedWeeks(district.district_id, district.district_name, vaccine);
+                await GetSpecifiedWeeks(district.District_id, district.District_name, vaccine);
             }
         }
 
@@ -104,12 +104,12 @@ namespace CowinAvailabilityTracker.Mangers
 
                     foreach (var center in str.Centers)
                     {
-                        var slots = string.Join(Environment.NewLine, center.sessions.Select(x => $" {x.available_capacity} slots available on {x.date}{vaccineMessage}"));
-                        var slotMessage = $"{center.fee_type} vaccination at {center.name} located in {center.district_name} district with pincode {center.pincode}"
+                        var slots = string.Join(Environment.NewLine, center.Sessions.Select(x => $" {x.Available_capacity} slots available on {x.Date}{vaccineMessage}"));
+                        var slotMessage = $"{center.Fee_type} vaccination at {center.Name} located in {center.District_name} district with pincode {center.Pincode}"
                             + Environment.NewLine + slots + Environment.NewLine;
 
                         Console.WriteLine(slotMessage);
-                        await CheckAndPost(date, center.center_id, slotMessage);
+                        await CheckAndPost(date, center.Center_id, slotMessage);
                     }
                 }
             }
