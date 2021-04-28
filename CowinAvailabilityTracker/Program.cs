@@ -11,14 +11,13 @@ namespace CowinAvailabilityTracker
         {
             Console.WriteLine("Fetching Details ...");
 
-            while (1 == 1)
+            while (true)
             { 
                 var slotManager = new SlotManger();
-                await slotManager.FindSlot();
+                await slotManager.MonitorSlot();
 
                 Thread.Sleep(AppContext.interval * 1000 * 60);
             }
         }
-
     }
 }
