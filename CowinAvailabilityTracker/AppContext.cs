@@ -17,7 +17,11 @@ namespace CowinAvailabilityTracker
         public static int WeeksToSearch;
         public static DistrictList districtsList;
         public static VaccineSearchMode VaccineSearchMode;
-        public static string chatWebhookUrl;
+        public static string GoogleChatWebhookUrl;
+        public static NotifyOn notifyOn;
+        public static string telegram_ChatId;
+        public static string telegram_ApiToken;
+
 
         static AppContext()
         {
@@ -29,11 +33,14 @@ namespace CowinAvailabilityTracker
 
             runMode = (RunMode)Enum.Parse(typeof(RunMode), appConfiguration.GetSection("AppSettings")["RunMode"]);
             AppContext.district = appConfiguration.GetSection("AppSettings")["District"];
-            chatWebhookUrl = appConfiguration.GetSection("AppSettings")["ChatWebhookUrl"];
+            GoogleChatWebhookUrl = appConfiguration.GetSection("AppSettings")["GoogleChatWebhookUrl"];
             interval = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["AlertInterval"]);
             districtsList = JsonConvert.DeserializeObject<DistrictList>(File.ReadAllText("Districts.json"));
             VaccineSearchMode = (VaccineSearchMode)Enum.Parse(typeof(VaccineSearchMode), appConfiguration.GetSection("AppSettings")["VaccineSearchMode"].ToUpper());
             WeeksToSearch = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["WeeksToSearch"]);
+            notifyOn = (NotifyOn)Enum.Parse(typeof(NotifyOn), appConfiguration.GetSection("AppSettings")["NotifyOn"]);
+            telegram_ChatId = appConfiguration.GetSection("AppSettings")["Telegram_ChatId"];
+            telegram_ApiToken = appConfiguration.GetSection("AppSettings")["Telegram_ApiToken"];
 
             var district = districtsList.Districts.Where(x => string.Equals(x.District_name, AppContext.district, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
 

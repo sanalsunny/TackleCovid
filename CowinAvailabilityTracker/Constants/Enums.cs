@@ -9,11 +9,17 @@
         }
 
         public enum VaccineSearchMode
-        { 
+        {
             DEFAULT,
             ALL,
             COVISHIELD,
             COVAXIN
+        }
+
+        public enum NotifyOn
+        {
+            Telegram,
+            GoogleChat
         }
     }
 }
