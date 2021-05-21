@@ -28,5 +28,7 @@ namespace CowinAvailabilityTracker.Models
         public int Min_age_limit { get; set; }
         public string Vaccine { get; set; }
         public List<string> Slots { get; set; }
+        public float Available_capacity_dose1 { get; set; }
+        public float Available_capacity_dose2 { get; set; }
     }
 }

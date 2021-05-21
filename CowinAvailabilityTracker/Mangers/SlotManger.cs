@@ -106,7 +106,7 @@ namespace CowinAvailabilityTracker.Mangers
 
                     foreach (var center in str.Centers)
                     {
-                        var slots = string.Join(Environment.NewLine, center.Sessions.Select(x => $" {x.Available_capacity} slots for age {x.Min_age_limit}+ " +
+                        var slots = string.Join(Environment.NewLine, center.Sessions.Select(x => $" {x.Available_capacity} ( dose 1 :{x.Available_capacity_dose1}| dose 2 :{x.Available_capacity_dose2} ) slots for age {x.Min_age_limit}+ " +
                         $"available on {x.Date} { x.Vaccine??vaccineMessage}"));
                         var slotMessage = $"{center.Fee_type} vaccination at {center.Name} located in {center.District_name} district with pincode {center.Pincode} "
                             + Environment.NewLine + slots + Environment.NewLine;
