@@ -70,7 +70,7 @@ namespace CowinAvailabilityTracker.Mangers
         {
             int dateInterval = 7;
             int i = 0;
-            DateTime date = DateTime.Now.AddDays(1);
+            DateTime date = DateTime.Now;
 
             while (AppContext.WeeksToSearch > i)
             {
@@ -85,7 +85,7 @@ namespace CowinAvailabilityTracker.Mangers
         public async Task ProcessDistrict(int districtId, string districtName, string vaccine, string date = null)
         {
 
-            date ??= DateTime.Now.AddDays(1).ToString("dd-MM-yyyy");
+            date ??= DateTime.Now.ToString("dd-MM-yyyy");
             var enddate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddDays(7).ToString("dd-MM-yyyy");
 
             var vaccinekey = vaccine != null ? $"&vaccine={vaccine}" : null;
@@ -106,7 +106,13 @@ namespace CowinAvailabilityTracker.Mangers
 
                     foreach (var center in str.Centers)
                     {
-                        var slots = string.Join(Environment.NewLine, center.Sessions.Select(x => $" {x.Available_capacity} ( dose 1 :{x.Available_capacity_dose1}| dose 2 :{x.Available_capacity_dose2} ) slots for age {x.Min_age_limit}+ " +
+                        if (!center.Sessions.Any(x => x.Min_age_limit == AppContext.minAgeLimit && x.Available_capacity_dose1 > 0))
+                        {
+                            continue;
+                        }
+
+                        var slots = string.Join(Environment.NewLine, center.Sessions.Where(x => x.Min_age_limit == AppContext.minAgeLimit && x.Available_capacity_dose1 > 0)
+                            .Select(x => $" {x.Available_capacity} ( dose 1 :{x.Available_capacity_dose1}| dose 2 :{x.Available_capacity_dose2} ) slots for age {x.Min_age_limit}+ " +
                         $"available on {x.Date} { x.Vaccine??vaccineMessage}"));
                         var slotMessage = $"{center.Fee_type} vaccination at {center.Name} located in {center.District_name} district with pincode {center.Pincode} "
                             + Environment.NewLine + slots + Environment.NewLine;

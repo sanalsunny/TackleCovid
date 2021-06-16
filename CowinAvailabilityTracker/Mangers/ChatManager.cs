@@ -52,7 +52,7 @@ namespace CowinAvailabilityTracker.Mangers
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var activeMessages = JsonConvert.DeserializeObject<TelegramMessageModel>(jsonString);
 
-                var chatIds = activeMessages.Result.Select(x => x.Message.From.Id).Distinct();
+                var chatIds = activeMessages.Result.Where(x => x.Message != null).Select(x => x.Message.From.Id).Distinct();
 
                 foreach (var chatId in chatIds)
                 {

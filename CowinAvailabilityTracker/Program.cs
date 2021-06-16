@@ -16,7 +16,7 @@ namespace CowinAvailabilityTracker
                 var slotManager = new SlotManger();
                 await slotManager.MonitorSlot();
 
-                Thread.Sleep(AppContext.interval * 1000 * 60);
+                Thread.Sleep(TimeSpan.FromSeconds(AppContext.interval));
             }
         }
     }

@@ -12,6 +12,7 @@ namespace CowinAvailabilityTracker
     {
         public static RunMode runMode;
         public static int districtId;
+        public static int minAgeLimit;
         public static string district;
         public static int interval;
         public static int WeeksToSearch;
@@ -33,6 +34,7 @@ namespace CowinAvailabilityTracker
             runMode = (RunMode)Enum.Parse(typeof(RunMode), appConfiguration.GetSection("AppSettings")["RunMode"]);
             AppContext.district = appConfiguration.GetSection("AppSettings")["District"];
             interval = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["AlertInterval"]);
+            minAgeLimit = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["MinAgeLimit"]);
             districtsList = JsonConvert.DeserializeObject<DistrictList>(File.ReadAllText("Districts.json"));
             VaccineSearchMode = (VaccineSearchMode)Enum.Parse(typeof(VaccineSearchMode), appConfiguration.GetSection("AppSettings")["VaccineSearchMode"].ToUpper());
             WeeksToSearch = Convert.ToInt32(appConfiguration.GetSection("AppSettings")["WeeksToSearch"]);
